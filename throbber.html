@@ -1,0 +1,28 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+function createThrobber() {
+    var d = $("<div />");
+    for (var i = 0; i < 10; i++) {
+        $("<span />").text(".")
+                     .appendTo(d)
+                     .css({ color: i === 0 ? "#000" : "#ccc" });
+    }
+    var timer = setInterval(function () {
+        if ($.contains(document.documentElement, d[0])) {
+            d.find("span:last").prependTo(d);
+        } else {
+            clearInterval(timer);
+        }
+    }, 300);
+    return d;
+}
+
+// test
+$(function () {
+    var throbber = createThrobber();
+  $(document.body).append(throbber);
+    setTimeout(function () {
+        throbber.remove();
+    }, 5000);
+});
+</script>
